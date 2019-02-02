@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {PersonModal} from "./components/person/person_modal/PersonModal";
+import {PersonsList} from "./containers/persons_list/PersonsList";
+import {CreatePersonForm} from "./forms/create_person_form/CreatePersonForm";
+import {APP_STATE_DEFAULT} from "./consts/AppStateDefault";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+export default class App extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = APP_STATE_DEFAULT;
+
+        this.createPerson = this.createPerson.bind(this);
+        this.deletePerson = this.deletePerson.bind(this);
+    }
+
+    createPerson(person) {
+
+    }
+
+    deletePerson(id) {
+
+    }
+
+    render() {
+        return (
+          <div className="app">
+              <PersonsList persons={this.state.persons}/>
+          </div>
+        );
+    }
 }
-
-export default App;
