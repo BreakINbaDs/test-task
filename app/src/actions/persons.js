@@ -1,15 +1,15 @@
 import C from './constants'
 
 export const fetchPersons = () => ({
-   type: C.FETCH_PERSONS,
+    type: C.FETCH_PERSONS,
 });
 
-export const removePerson = id => ({
-    type: C.REMOVE_PERSON,
-    id
+export const personsFetched = (data) => ({
+    type: C.PERSONS_FETCHED,
+    data
 });
 
-export const addPerson = (person) => ({
-    type: C.ADD_PERSON,
-    person
+export const error = (error) => ({
+    type: C.ERROR,
+    error
 });

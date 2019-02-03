@@ -1,6 +1,6 @@
 const constants = {
     FETCH_PERSONS: "FETCH_PERSONS",
-    ADD_PERSON: "ADD_PERSON",
-    REMOVE_PERSON: "REMOVE_PERSON"
+    PERSONS_FETCHED: "PERSONS_FETCHED",
+    ERROR: "ERROR",
 };
 export default constants;
