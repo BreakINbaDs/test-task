@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
+import './Person.scss';
 
 export class Person extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
-            <div className='person'>
+            <div className='person' onClick={this.props.onClick}>
                 <div className='person__info'>
                     <span>
                         {this.props.person.name}
                     </span>
-                    <div>
+                    <div className='person__org'>
                         {this.props.person.org_name}
                     </div>
                 </div>
                 {
-                    (this.props.person.img !== null)
+                    (this.props.person.img !== undefined)
                     ? <img src={this.props.person.img}></img>
-                    : <div className='person__img'></div>
+                    : <div className='person__img'>
+                            {this.props.person.first_name.charAt(0)}
+                            {this.props.person.last_name.charAt(0)}
+                      </div>
                 }
             </div>
         )

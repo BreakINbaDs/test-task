@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './PersonModal.scss';
 
 export class PersonModal extends Component {
 
@@ -9,38 +10,49 @@ export class PersonModal extends Component {
     render() {
         return (
             <div className='person_modal'>
-                <div>Person information</div>
-                <div>
-                    <img src={this.person.img}></img>
-                    <div>
-                        {this.person.firstName}
-                        {this.person.lastName}
+                <svg className='person_modal__close'></svg>
+                <h1>Person information</h1>
+                <div className='person_modal__wrapper'>
+                    <div className='person_modal__main-info'>
+                        {
+                            (this.props.person.img !== undefined)
+                                ? <img src={this.props.person.img}></img>
+                                : <div className='person_modal__img'>
+                                    {this.props.person.first_name.charAt(0)}
+                                    {this.props.person.last_name.charAt(0)}
+                                </div>
+                        }
+                        <div className='person_modal__person-name'>
+                            {this.props.person.name}
+                        </div>
+                        <div className='person_modal__person-phone'>
+                            {this.props.person.phone[0].value}
+                        </div>
                     </div>
-                    <div>{this.person.tel}</div>
+                    <div className='person_modal__info'>
+                        <div className='person_modal__info-row'>
+                            <span>Email </span>
+                            <div className='person_modal__info-item'>
+                                {this.props.person.email[0].value}
+                            </div>
+                        </div>
+                        <div className='person_modal__info-row'>
+                            <span>Organisation </span>
+                            <div className='person_modal__info-item'>
+                                {this.props.person.org_name}
+                            </div>
+                        </div>
+                        <div className='person_modal__info-row'>
+                            <span>Location </span>
+                            <div className='person_modal__info-item'>
+                                {this.props.person.org_id.address}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <span>Email</span>
-                    {this.person.email}
-                </div>
-                <div>
-                    <span>Organization</span>
-                    {this.person.organization}
-                </div>
-                <div>
-                    <span>Assistant</span>
-                    {this.person.assistant}
-                </div>
-                <div>
-                    <span>Groups</span>
-                    {this.person.groups}
-                </div>
-                <div>
-                    <span>Location</span>
-                    {this.person.location}
-                </div>
-                <div>
-                    <button>Delete</button>
-                    <button>Back</button>
+                <div className='person_modal__footer'>
+                    <div className='person_modal__button-delete'>Delete</div>
+                    <div className='person_modal__button-back'>Back</div>
                 </div>
             </div>
         )

@@ -5,7 +5,19 @@ export const persons = (state = [], action) => {
         case C.FETCH_PERSONS: return [
             ...state,
         ];
-        case C.PERSONS_FETCHED:
+        case C.FETCH_PERSONS_SUCCESS:
+            return action.data.data;
+        default:
+            return state
+    }
+};
+
+export const person = (state = {}, action) => {
+    switch (action.type) {
+        case C.FETCH_PERSON: return {
+            ...state,
+        };
+        case C.FETCH_PERSON_SUCCESS:
             return action.data.data;
         default:
             return state
@@ -14,7 +26,7 @@ export const persons = (state = [], action) => {
 
 export const pagination = (state = {}, action) => {
     switch (action.type) {
-        case C.PERSONS_FETCHED:
+        case C.FETCH_PERSONS_SUCCESS:
             return action.data.additional_data.pagination;
         default:
             return state

@@ -4,8 +4,18 @@ export const fetchPersons = () => ({
     type: C.FETCH_PERSONS,
 });
 
-export const personsFetched = (data) => ({
-    type: C.PERSONS_FETCHED,
+export const fetchPersonsSuccess = (data) => ({
+    type: C.FETCH_PERSONS_SUCCESS,
+    data
+});
+
+export const fetchPerson = (id) => ({
+    type: C.FETCH_PERSON,
+    id
+});
+
+export const fetchPersonSuccess = (data) => ({
+    type: C.FETCH_PERSON_SUCCESS,
     data
 });
 
