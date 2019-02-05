@@ -5,15 +5,17 @@ import {
     fetchPersonsSuccess,
     fetchPerson,
     fetchPersonSuccess,
-    error
+    deletePerson,
+    deletePersonSuccess,
+    error, openPersonView, closePersonView
 } from "../actions/persons";
 
 const store = storePersons();
 
-export const getPersons = () => {
+export const getPersons = (pagination) => {
     store.dispatch(fetchPersons());
     return function(dispatch, getState) {
-        return fetch(`https://api.pipedrive.com/v1/persons?start=0&limit=3&api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`)
+        return fetch(`https://api.pipedrive.com/v1/persons?start=`+pagination.next_start+`&limit=`+pagination.limit+`&api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`)
             .then(data => data.json())
             .then(data => {
                 if (data.success) {
@@ -39,6 +41,7 @@ export const getPerson = (id) => {
                 if (data.success) {
                     console.log('Data:', data);
                     dispatch(fetchPersonSuccess(data));
+                    dispatch(openPersonView());
                 } else {
                     console.log('Error', data);
                     dispatch(error(data));
@@ -48,4 +51,25 @@ export const getPerson = (id) => {
                 dispatch(error(err));
             });
     };
-}
+};
+
+export const removePerson = (id) => {
+    store.dispatch(deletePerson());
+    return function(dispatch, getState) {
+        return fetch(`https://api.pipedrive.com/v1/persons/`+id+`?api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`, {method: 'DELETE'})
+            .then(data => data.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Data:', data);
+                    dispatch(deletePersonSuccess(id));
+                    dispatch(closePersonView());
+                } else {
+                    console.log('Error', data);
+                    dispatch(error(data));
+                }
+            })
+            .catch(err => {
+                dispatch(error(err));
+            });
+    };
+};

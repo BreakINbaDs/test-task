@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import {persons, person, pagination, error} from "./reducers/persons";
+import {persons, person, loader, personView, pagination, error} from "./reducers/persons";
 import {APP_STATE_DEFAULT} from "./consts/AppStateDefault";
 import thunk from "redux-thunk";
 
@@ -15,7 +15,7 @@ const logger = store => next => action => {
 
 const storePersons = (initialState=APP_STATE_DEFAULT) =>
     applyMiddleware(logger, thunk)(createStore)(
-    combineReducers({ persons, person, pagination, error }),
+    combineReducers({ persons, person, loader, personView, pagination, error }),
     initialState
 );
 

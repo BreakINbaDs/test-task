@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import {Person} from "../../components/person/Person";
 import './PersonsList.scss';
+import InfiniteScroll from 'react-infinite-scroller';
 
 export class PersonsList extends Component {
 
     render() {
         return (
-            <div className='persons_list'>
+            <InfiniteScroll className='persons_list'
+                            hasMore={this.props.hasMore}
+                            loadMore={() => this.props.onLoadMore()}>
                 <div className='persons_list__header'></div>
                 <h1>Peoples's List</h1>
                 <div className='persons_list__wrapper'>
@@ -23,7 +26,7 @@ export class PersonsList extends Component {
                     }
                 </div>
                 <div className='persons_list__footer'></div>
-            </div>
+            </InfiniteScroll>
         )
     }
 }

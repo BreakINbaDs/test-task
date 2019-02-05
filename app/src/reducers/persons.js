@@ -2,11 +2,16 @@ import C from '../actions/constants';
 
 export const persons = (state = [], action) => {
     switch (action.type) {
-        case C.FETCH_PERSONS: return [
+        case C.FETCH_PERSONS:
+        case C.DELETE_PERSON: return [
             ...state,
         ];
         case C.FETCH_PERSONS_SUCCESS:
-            return action.data.data;
+            return state.concat(action.data.data);
+        case C.DELETE_PERSON_SUCCESS:
+            return state.filter(person => {
+                return person.id !== action.id
+            });
         default:
             return state
     }
@@ -33,11 +38,42 @@ export const pagination = (state = {}, action) => {
     }
 };
 
+export const loader = (state = {}, action) => {
+    switch (action.type) {
+        case C.FETCH_PERSONS:
+        case C.FETCH_PERSON:
+        case C.DELETE_PERSON: return {
+            isLoading: true
+        };
+        case C.FETCH_PERSONS_SUCCESS:
+        case C.FETCH_PERSON_SUCCESS:
+        case C.DELETE_PERSON_SUCCESS:
+        case C.ERROR: return {
+            isLoading: false
+        };
+        default:
+            return state;
+    }
+};
+
+export const personView = (state = {}, action) => {
+    switch (action.type) {
+        case C.OPEN_PERSON_VIEW: return {
+            isOpened: true
+        };
+        case C.CLOSE_PERSON_VIEW: return {
+            isOpened: false
+        };
+        default:
+            return state;
+    }
+};
+
 export const error = (state = {}, action) => {
     switch (action.type) {
         case C.ERROR:
             return action.error;
         default:
-            return state
+            return state;
     }
 };
