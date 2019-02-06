@@ -1,6 +1,6 @@
 import C from '../actions/constants';
 
-export const persons = (state = [], action) => {
+export const index = (state = [], action) => {
     switch (action.type) {
         case C.FETCH_PERSONS:
         case C.DELETE_PERSON: return [

@@ -1,5 +1,4 @@
-import fetch from 'cross-fetch';
-import storePersons from "../Store";
+import storePersons from "../store/storeConfiguration";
 import {
     fetchPersons,
     fetchPersonsSuccess,
@@ -8,13 +7,13 @@ import {
     deletePerson,
     deletePersonSuccess,
     error, openPersonView, closePersonView
-} from "../actions/persons";
+} from "../actions/index";
 
 const store = storePersons();
 
 export const getPersons = (pagination) => {
     store.dispatch(fetchPersons());
-    return function(dispatch, getState) {
+    return function(dispatch) {
         return fetch(`https://api.pipedrive.com/v1/persons?start=`+pagination.next_start+`&limit=`+pagination.limit+`&api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`)
             .then(data => data.json())
             .then(data => {
@@ -34,7 +33,7 @@ export const getPersons = (pagination) => {
 
 export const getPerson = (id) => {
     store.dispatch(fetchPerson());
-    return function(dispatch, getState) {
+    return function(dispatch) {
         return fetch(`https://api.pipedrive.com/v1/persons/`+id+`?api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`)
             .then(data => data.json())
             .then(data => {
@@ -55,7 +54,7 @@ export const getPerson = (id) => {
 
 export const removePerson = (id) => {
     store.dispatch(deletePerson());
-    return function(dispatch, getState) {
+    return function(dispatch) {
         return fetch(`https://api.pipedrive.com/v1/persons/`+id+`?api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`, {method: 'DELETE'})
             .then(data => data.json())
             .then(data => {

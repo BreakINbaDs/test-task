@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {Person} from "../../components/person/Person";
-import './PersonsList.scss';
+import './PersonsListPage.scss';
 import InfiniteScroll from 'react-infinite-scroller';
 
-export class PersonsList extends Component {
+export class PersonsListPage extends Component {
 
     render() {
         return (
