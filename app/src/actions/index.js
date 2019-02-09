@@ -11,6 +11,11 @@ export const fetchPersonsSuccess = (data) => ({
     data
 });
 
+export const searchPerson = (searchName) => ({
+    type: C.SEARCH_PERSON,
+    searchName
+});
+
 /*
 Person
  */

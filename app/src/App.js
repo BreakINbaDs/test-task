@@ -4,7 +4,7 @@ import './App.css';
 import {PersonsListPage} from "./pages/persons_list_page/PersonsListPage";
 import {createPerson, getPerson, getPersons, removePerson} from "./services/webAPI";
 import {PersonView} from "./components/person/person_view/PersonView";
-import {closeCreatePersonForm, closePersonView, openCreatePersonForm} from "./actions/index";
+import {closeCreatePersonForm, closePersonView, openCreatePersonForm, searchPerson} from "./actions/index";
 import {CreatePersonForm} from "./components/forms/create_person_form/CreatePersonForm";
 
 class App extends Component {
@@ -20,9 +20,11 @@ class App extends Component {
         this.closePersonCreateForm = this.closePersonCreateForm.bind(this);
         this.addPerson = this.addPerson.bind(this);
         this.onDragEnd = this.onDragEnd.bind(this);
+        this.onSearch = this.onSearch.bind(this);
     }
     componentDidMount() {
-        this.fetchPersons();
+        if (this.props.persons.length === 0)
+            this.fetchPersons();
     }
 
     fetchPersons() {
@@ -65,6 +67,10 @@ class App extends Component {
         //update order column (webAPI)
     }
 
+    onSearch(search) {
+        this.props.dispatch(searchPerson(search));
+    }
+
     render() {
         console.log('Persons', this.props.persons);
         return (
@@ -75,6 +81,7 @@ class App extends Component {
                                hasMore={this.props.pagination.more_items_in_collection}
                                onLoadMore={this.fetchPersons}
                                onDragEnd={this.onDragEnd}
+                               onSearch={this.onSearch}
               />
               <PersonView person={this.props.person}
                           onDeletePerson={this.deletePerson}

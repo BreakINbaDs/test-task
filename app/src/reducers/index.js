@@ -17,6 +17,10 @@ export const index = (state = [], action) => {
                 ...state,
                 action.data.data
             ];
+        case C.SEARCH_PERSON:
+            return state.filter(person => {
+                return person.name.toLowerCase().includes(action.searchName.toLowerCase())
+            });
         default:
             return state
     }
