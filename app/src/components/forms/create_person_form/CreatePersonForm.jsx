@@ -13,14 +13,11 @@ export class CreatePersonForm extends Component {
     }
 
     submit() {
-        // e.preventDefault();
-        const {_name, _email, _phone} = this.refs;
+        const {_email, _phone} = this.refs;
         if (validatePhone(_phone.value) && validateEmail(_email.value)) {
             const person = refsToPerson(this.refs, PersonVisibility.SHARED);
-            console.log(person);
+            this.props.onAddPerson(person);
         }
-        // this.props.onCreatePerson(_title.value, _color.value);
-        console.log(`New Person: ${_name.value} ${_email.value}`)
     }
     render() {
         const {isVisible, onClosePersonCreateForm} = this.props;

@@ -24,9 +24,8 @@ export const fetchPersonSuccess = (data) => ({
     data
 });
 
-export const addPerson = (id) => ({
+export const addPerson = () => ({
     type: C.ADD_PERSON,
-    id
 });
 
 export const addPersonSuccess = (data) => ({

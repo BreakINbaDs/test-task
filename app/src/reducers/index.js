@@ -29,8 +29,6 @@ export const person = (state = {}, action) => {
         };
         case C.FETCH_PERSON_SUCCESS:
             return action.data.data;
-        case C.ADD_PERSON:
-            return action.person;
         default:
             return state
     }

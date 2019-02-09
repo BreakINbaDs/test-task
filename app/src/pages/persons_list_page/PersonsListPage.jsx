@@ -6,6 +6,29 @@ import {Droppable, DragDropContext} from  'react-beautiful-dnd';
 
 export class PersonsListPage extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+          isDragging: false
+        };
+
+        this.loadMore = this.loadMore.bind(this);
+        this.onDragEnd = this.onDragEnd.bind(this);
+    }
+
+    loadMore() {
+        if (!this.state.isDragging)
+            this.props.onLoadMore()
+    }
+
+    onDragEnd(result) {
+        this.setState({
+            isDragging: false
+        });
+        this.props.onDragEnd(result)
+    }
+
     render() {
         return (
             <div className='persons_list'>
@@ -14,7 +37,10 @@ export class PersonsListPage extends Component {
                 </div>
                 <h1>Peoples's List</h1>
                 <DragDropContext
-                    onDragEnd={(result) => {this.props.onDragEnd(result)}}
+                    onDragStart={() => {this.setState({
+                        isDragging: true
+                    })}}
+                    onDragEnd={(result) => {this.onDragEnd(result)}}
                 >
                     <Droppable droppableId={'persons_list'}>
                         {(provided) => (
@@ -24,7 +50,7 @@ export class PersonsListPage extends Component {
                             >
                                 <InfiniteScroll className='persons_list__wrapper'
                                                 hasMore={this.props.hasMore}
-                                                loadMore={() => this.props.onLoadMore()}
+                                                loadMore={() => this.loadMore()}
                                 >
                                     {
                                         this.props.persons.map((person, index) =>

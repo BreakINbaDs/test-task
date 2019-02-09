@@ -38,13 +38,19 @@ export class PersonView extends Component {
                             <div className='person_modal__info-row'>
                                 <span>Organisation </span>
                                 <div className='person_modal__info-item'>
-                                    {person.org_name}
+                                    {person.org_name !== null && person.org_name}
                                 </div>
                             </div>
                             <div className='person_modal__info-row'>
                                 <span>Location </span>
                                 <div className='person_modal__info-item'>
-                                    {person.org_id.address}
+                                    {person.org_id !== null && person.org_id.address}
+                                </div>
+                            </div>
+                            <div className='person_modal__info-row'>
+                                <span>Groups</span>
+                                <div className='person_modal__info-item'>
+                                    {person['4af767b021868564752ea8d2b45c6af363237d6e'] !== null && person['4af767b021868564752ea8d2b45c6af363237d6e']}
                                 </div>
                             </div>
                         </div>

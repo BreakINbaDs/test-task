@@ -19,7 +19,8 @@ export const APP_STATE_DEFAULT = {
             primary: false
         }],
         visible_to: null,
-        add_time: ''
+        add_time: '',
+        '4af767b021868564752ea8d2b45c6af363237d6e': ''
     },
     pagination: {
         start: 0,

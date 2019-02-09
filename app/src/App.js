@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './App.css';
 import {PersonsListPage} from "./pages/persons_list_page/PersonsListPage";
-import {getPerson, getPersons, removePerson} from "./services/webAPI";
+import {createPerson, getPerson, getPersons, removePerson} from "./services/webAPI";
 import {PersonView} from "./components/person/person_view/PersonView";
 import {closeCreatePersonForm, closePersonView, openCreatePersonForm} from "./actions/index";
 import {CreatePersonForm} from "./components/forms/create_person_form/CreatePersonForm";
@@ -18,6 +18,7 @@ class App extends Component {
         this.fetchPersons = this.fetchPersons.bind(this);
         this.openPersonCreateForm = this.openPersonCreateForm.bind(this);
         this.closePersonCreateForm = this.closePersonCreateForm.bind(this);
+        this.addPerson = this.addPerson.bind(this);
         this.onDragEnd = this.onDragEnd.bind(this);
     }
     componentDidMount() {
@@ -46,6 +47,10 @@ class App extends Component {
 
     closePersonCreateForm() {
         this.props.dispatch(closeCreatePersonForm())
+    }
+
+    addPerson(person) {
+        this.props.dispatch(createPerson(person))
     }
 
     onDragEnd(result) {
@@ -78,6 +83,7 @@ class App extends Component {
               />
               <CreatePersonForm isVisible={this.props.personCreateForm.isOpened}
                                 onClosePersonCreateForm={this.closePersonCreateForm}
+                                onAddPerson={this.addPerson}
               />
           </div>
         );

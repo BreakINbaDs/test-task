@@ -52,8 +52,8 @@ export const getPerson = (id) => {
     };
 };
 
-export const createPerson = () => {
-    store.dispatch(addPerson());
+export const createPerson = (person) => {
+    console.log('Person to add:', person);
     return function(dispatch, getState) {
         let state = getState();
         return fetch(`https://api.pipedrive.com/v1/persons?api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`, {
@@ -61,7 +61,7 @@ export const createPerson = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(state.newPerson),
+            body: JSON.stringify(person),
         })
             .then(data => data.json())
             .then(data => {
