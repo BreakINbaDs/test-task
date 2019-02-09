@@ -50,6 +50,14 @@ class App extends Component {
 
     onDragEnd(result) {
         console.log('Drag End:', result);
+        const { destination, source, draggableId } = result;
+
+        if (!destination || (destination.index === source.index))
+            return;
+
+        const persons = this.props.persons;
+        persons[source.index] = persons.splice(destination.index, 1, persons[source.index])[0];
+        //update order column (webAPI)
     }
 
     render() {
