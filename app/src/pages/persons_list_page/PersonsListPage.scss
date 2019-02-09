@@ -6,6 +6,22 @@
         width: 100%;
         height: 60px;
         background-color: #3F4346;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        button {
+            align-self: flex-end;
+            margin-right: 20px;
+            height: 30px;
+            background-color: white;
+            cursor: pointer;
+            border: #F1F1F1 solid 2px;
+            text-align: center;
+            font-size: 14px;
+            box-sizing: border-box;
+            border-radius: 2px;
+        }
     }
 
     h1 {

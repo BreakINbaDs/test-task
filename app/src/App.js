@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import './App.css';
 import {PersonsListPage} from "./pages/persons_list_page/PersonsListPage";
 import {getPerson, getPersons, removePerson} from "./services/webAPI";
-import {PersonModal} from "./components/person/person_modal/PersonModal";
-import {closePersonView} from "./actions/index";
+import {PersonView} from "./components/person/person_view/PersonView";
+import {closeCreatePersonForm, closePersonView, openCreatePersonForm} from "./actions/index";
 import {CreatePersonForm} from "./components/forms/create_person_form/CreatePersonForm";
 
 class App extends Component {
@@ -16,6 +16,8 @@ class App extends Component {
         this.deletePerson = this.deletePerson.bind(this);
         this.closePersonModalView = this.closePersonModalView.bind(this);
         this.fetchPersons = this.fetchPersons.bind(this);
+        this.openPersonCreateForm = this.openPersonCreateForm.bind(this);
+        this.closePersonCreateForm = this.closePersonCreateForm.bind(this);
     }
     componentDidMount() {
         this.fetchPersons();
@@ -37,21 +39,37 @@ class App extends Component {
         this.props.dispatch(closePersonView());
     }
 
+    openPersonCreateForm() {
+        this.props.dispatch(openCreatePersonForm())
+    }
+
+    closePersonCreateForm() {
+        this.props.dispatch(closeCreatePersonForm())
+    }
+
+    onDragEnd(result) {
+        console.log('Drag End:', result);
+    }
+
     render() {
         console.log('Persons', this.props.persons);
         return (
           <div className="app">
               <PersonsListPage persons={this.props.persons}
                                onOpenPerson={this.openPerson}
+                               onOpenPersonCreateForm={this.openPersonCreateForm}
                                hasMore={this.props.pagination.more_items_in_collection}
                                onLoadMore={this.fetchPersons}
+                               onDragEnd={this.onDragEnd}
               />
-              <PersonModal person={this.props.person}
-                           onDeletePerson={this.deletePerson}
-                           onClosePersonView={this.closePersonModalView}
-                           isVisible={this.props.personView.isOpened}
+              <PersonView person={this.props.person}
+                          onDeletePerson={this.deletePerson}
+                          onClosePersonView={this.closePersonModalView}
+                          isVisible={this.props.personView.isOpened}
               />
-              <CreatePersonForm/>
+              <CreatePersonForm isVisible={this.props.personCreateForm.isOpened}
+                                onClosePersonCreateForm={this.closePersonCreateForm}
+              />
           </div>
         );
     }
@@ -62,6 +80,7 @@ const mapStateToProps = state => {
         persons: state.persons,
         person: state.person,
         personView: state.personView,
+        personCreateForm: state.personCreateForm,
         pagination: state.pagination
     };
 };

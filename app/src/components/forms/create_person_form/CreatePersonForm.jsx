@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import './CreatePersonForm.scss';
+import  {refsToPerson} from "../../../helpers/personCreator";
+import {PersonVisibility} from "../../../consts/enums/PersonVisibility";
+import {validatePhone} from "../../../helpers/phoneValidator";
+import {validateEmail} from "../../../helpers/emailValidator";
 
 export class CreatePersonForm extends Component {
 
@@ -8,30 +12,46 @@ export class CreatePersonForm extends Component {
         this.submit = this.submit.bind(this);
     }
 
-    submit(e) {
-        e.preventDefault();
+    submit() {
+        // e.preventDefault();
         const {_name, _email, _phone} = this.refs;
+        if (validatePhone(_phone.value) && validateEmail(_email.value)) {
+            const person = refsToPerson(this.refs, PersonVisibility.SHARED);
+            console.log(person);
+        }
         // this.props.onCreatePerson(_title.value, _color.value);
         console.log(`New Person: ${_name.value} ${_email.value}`)
     }
     render() {
+        const {isVisible, onClosePersonCreateForm} = this.props;
         return (
-            <div className='create_person_form_background'>
-                <form className='create_person_form' onSubmit={this.submit}>
-                    <input ref="_name"
-                           type="text"
-                           placeholder="Full name..."
-                           required/>
-                    <input ref="_email"
-                           type="email"
-                           placeholder="Email..."
-                           required/>
-                    <input ref="_phone"
-                           type="tel"
-                           placeholder="Phone number..."
-                           required/>
-                    <button>ADD</button>
-                </form>
+            <div className={`create_person_form_background ${isVisible ? "create_person_form_background--visible" : ""}`}>
+                <div className='create_person_form'>
+                    <img src={require('../../../assets/images/close.png')}
+                         className='person_modal__close' onClick={() => onClosePersonCreateForm()}></img>
+                    <h1>Add person</h1>
+                    <form>
+                        <input ref="_name"
+                               type="text"
+                               placeholder="Full name..."
+                               required/>
+                        <input ref="_email"
+                               type="email"
+                               placeholder="Email..."
+                               required/>
+                        <input ref="_phone"
+                               type="tel"
+                               placeholder="Phone number..."
+                               required/>
+                        <input ref="_group"
+                               type="text"
+                               placeholder="Group..."
+                               required/>
+                    </form>
+                    <div className='create_person_form__footer'>
+                        <button onClick={() => this.submit()}>ADD</button>
+                    </div>
+                </div>
             </div>
         )
     }

@@ -12,6 +12,11 @@ export const index = (state = [], action) => {
             return state.filter(person => {
                 return person.id !== action.id
             });
+        case C.ADD_PERSON_SUCCESS:
+            return [
+                ...state,
+                action.data.data
+            ];
         default:
             return state
     }
@@ -24,6 +29,8 @@ export const person = (state = {}, action) => {
         };
         case C.FETCH_PERSON_SUCCESS:
             return action.data.data;
+        case C.ADD_PERSON:
+            return action.person;
         default:
             return state
     }
@@ -62,6 +69,19 @@ export const personView = (state = {}, action) => {
             isOpened: true
         };
         case C.CLOSE_PERSON_VIEW: return {
+            isOpened: false
+        };
+        default:
+            return state;
+    }
+};
+
+export const personCreateForm = (state = {}, action) => {
+    switch (action.type) {
+        case C.OPEN_CREATE_PERSON_FORM: return {
+            isOpened: true
+        };
+        case C.CLOSE_CREATE_PERSON_FORM: return {
             isOpened: false
         };
         default:
