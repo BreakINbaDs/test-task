@@ -18,6 +18,7 @@ class App extends Component {
         this.fetchPersons = this.fetchPersons.bind(this);
         this.openPersonCreateForm = this.openPersonCreateForm.bind(this);
         this.closePersonCreateForm = this.closePersonCreateForm.bind(this);
+        this.onDragEnd = this.onDragEnd.bind(this);
     }
     componentDidMount() {
         this.fetchPersons();

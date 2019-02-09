@@ -6,9 +6,13 @@ export class Person extends Component {
 
     render() {
         return (
-            <Draggable draggableId={this.props.person.id} index={this.props.index}>
-                {(provided, ) => (
-                    <div className='person' onClick={this.props.onClick}>
+            <Draggable draggableId={this.props.person.id.toString()} index={this.props.index}>
+                {(provided) => (
+                    <div className='person' onClick={this.props.onClick}
+                         {...provided.draggableProps}
+                         {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                    >
                         <div className='person__info'>
                         <span>
                             {this.props.person.name}
