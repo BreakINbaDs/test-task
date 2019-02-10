@@ -31,9 +31,7 @@ export class PersonsListPage extends Component {
     }
 
     onSearch() {
-        console.log('Change:', this.refs._search.value);
-        if (this.refs._search.value !== undefined)
-            this.props.onSearch(this.refs._search.value)
+        this.props.onSearch(this.refs._search.value)
     }
 
     render() {

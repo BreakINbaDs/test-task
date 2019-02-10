@@ -68,7 +68,11 @@ class App extends Component {
     }
 
     onSearch(search) {
-        this.props.dispatch(searchPerson(search));
+        if (search.length > 0) {
+            this.props.dispatch(searchPerson(search));
+        } else {
+            this.fetchPersons();
+        }
     }
 
     render() {

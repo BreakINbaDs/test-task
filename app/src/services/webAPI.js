@@ -14,7 +14,8 @@ const store = storePersons();
 export const getPersons = (pagination) => {
     store.dispatch(fetchPersons());
     return function(dispatch) {
-        return fetch(`https://api.pipedrive.com/v1/persons?start=`+pagination.next_start+`&limit=`+pagination.limit+`&api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`)
+        return fetch(`https://api.pipedrive.com/v1/persons?start=`+pagination.next_start+`&limit=`+pagination.limit+`&api_token=f8b6b82465c5e5dd9c3575039abaab1877919329
+        &sort=7341051c832696d047bf2bc387a00cef97c2b891 ASC`)
             .then(data => data.json())
             .then(data => {
                 if (data.success) {
@@ -99,4 +100,35 @@ export const removePerson = (id) => {
                 dispatch(error(err));
             });
     };
+};
+
+export const updatePersonInfo = (person) => {
+    store.dispatch(updatePerson());
+    return function(dispatch) {
+        return fetch(`https://api.pipedrive.com/v1/persons/`+person.id+`?api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(person),
+        })
+            .then(data => data.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Data:', data);
+                    dispatch(updatePersonSuccess(id));
+                } else {
+                    console.log('Error', data);
+                    dispatch(error(data));
+                }
+            })
+            .catch(err => {
+                dispatch(error(err));
+            });
+    };
+};
+
+export const reorderPersons = (personFrom, personTo) => {
+    this.updatePersonInfo(personFrom);
+    this.updatePersonInfo(personTo);
 };

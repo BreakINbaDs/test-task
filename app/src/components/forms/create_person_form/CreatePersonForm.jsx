@@ -40,7 +40,7 @@ export class CreatePersonForm extends Component {
                                type="tel"
                                placeholder="Phone number..."
                                required/>
-                        <input ref="_group"
+                        <input ref="_groups"
                                type="text"
                                placeholder="Group..."
                                required/>
