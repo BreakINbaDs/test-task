@@ -3,6 +3,7 @@ import {Person} from "../../components/person/Person";
 import './PersonsListPage.scss';
 import InfiniteScroll from 'react-infinite-scroller';
 import {Droppable, DragDropContext} from  'react-beautiful-dnd';
+import {PersonsList} from "../../components/person/persons_list/PersonsList";
 
 export class PersonsListPage extends Component {
 
@@ -36,8 +37,8 @@ export class PersonsListPage extends Component {
 
     render() {
         return (
-            <div className='persons_list'>
-                <div className='persons_list__header'>
+            <div className='persons_list_page'>
+                <div className='persons_list_page__header'>
                     <button onClick={() => this.props.onOpenPersonCreateForm()}>Add Person</button>
                 </div>
                 <h1>Peoples's List</h1>
@@ -56,29 +57,18 @@ export class PersonsListPage extends Component {
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                             >
-                                <InfiniteScroll className='persons_list__wrapper'
-                                                hasMore={this.props.hasMore}
-                                                loadMore={() => this.loadMore()}
-                                >
-                                    {
-                                        this.props.persons.map((person, index) =>
-                                            (
-                                                <Person
-                                                    person={person}
-                                                    key={person.id}
-                                                    index={index}
-                                                    onClick={() => this.props.onOpenPerson(person.id)}
-                                                ></Person>
-                                            )
-                                        )
-                                    }
-                                </InfiniteScroll>
+                                <PersonsList
+                                    hasMore={this.props.hasMore}
+                                    onLoadMore={() => this.loadMore()}
+                                    onOpenPerson={this.props.onOpenPerson}
+                                    persons={this.props.persons}
+                                />
                                 {provided.placeholder}
                             </div>
                         )}
                     </Droppable>
                 </DragDropContext>
-                <div className='persons_list__footer'></div>
+                <div className='persons_list_page__footer'></div>
             </div>
         )
     }
