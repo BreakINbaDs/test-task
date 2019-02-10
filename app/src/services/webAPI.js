@@ -6,7 +6,14 @@ import {
     fetchPersonSuccess,
     deletePerson,
     deletePersonSuccess,
-    error, openPersonView, closePersonView, addPerson, addPersonSuccess, closeCreatePersonForm
+    error,
+    openPersonView,
+    closePersonView,
+    addPerson,
+    addPersonSuccess,
+    closeCreatePersonForm,
+    updatePerson,
+    updatePersonSuccess
 } from "../actions/index";
 
 const store = storePersons();
@@ -116,7 +123,7 @@ export const updatePersonInfo = (person) => {
             .then(data => {
                 if (data.success) {
                     console.log('Data:', data);
-                    dispatch(updatePersonSuccess(id));
+                    dispatch(updatePersonSuccess(person));
                 } else {
                     console.log('Error', data);
                     dispatch(error(data));

@@ -64,6 +64,15 @@ export const closeCreatePersonForm = () => ({
     type: C.CLOSE_CREATE_PERSON_FORM
 });
 
+export const updatePerson = () => ({
+   type: C.UPDATE_PERSON
+});
+
+export const updatePersonSuccess = (person) => ({
+    type: C.UPDATE_PERSON_SUCCESS,
+    person
+});
+
 export const error = (error) => ({
     type: C.ERROR,
     error
