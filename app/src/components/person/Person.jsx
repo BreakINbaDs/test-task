@@ -18,6 +18,7 @@ export class Person extends Component {
                             {this.props.person.name}
                         </span>
                             <div className='person__org'>
+                                <img src={require('../../assets/images/org.png')}/>
                                 {this.props.person.org_name}
                             </div>
                         </div>

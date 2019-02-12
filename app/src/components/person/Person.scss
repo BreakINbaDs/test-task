@@ -15,13 +15,16 @@
   cursor: pointer;
   background-color: white;
 
-  span {
-  }
-
   &__org {
     font-size: 10px;
     font-weight: normal;
     margin-top: 3px;
+
+    img {
+      width: 12px;
+      height: 12px;
+      margin-right: 5px;
+    }
   }
 
   &__img {
