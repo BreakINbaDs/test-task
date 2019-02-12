@@ -15,14 +15,19 @@ import {
     updatePerson,
     updatePersonSuccess
 } from "../actions/index";
+import {apiService} from "./personsService";
 
+const namespace = '/persons';
 const store = storePersons();
+const persons = apiService(namespace);
 
 export const getPersons = (pagination) => {
     store.dispatch(fetchPersons());
     return function(dispatch) {
-        return fetch(`https://api.pipedrive.com/v1/persons?start=`+pagination.next_start+`&limit=`+pagination.limit+`&api_token=f8b6b82465c5e5dd9c3575039abaab1877919329
-        &sort=7341051c832696d047bf2bc387a00cef97c2b891 ASC`)
+        return persons.list({
+                start: pagination.next_start,
+                limit: pagination.limit
+            })
             .then(data => data.json())
             .then(data => {
                 if (data.success) {
@@ -42,7 +47,7 @@ export const getPersons = (pagination) => {
 export const getPerson = (id) => {
     store.dispatch(fetchPerson());
     return function(dispatch) {
-        return fetch(`https://api.pipedrive.com/v1/persons/`+id+`?api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`)
+        return persons.view(id)
             .then(data => data.json())
             .then(data => {
                 if (data.success) {
@@ -62,15 +67,8 @@ export const getPerson = (id) => {
 
 export const createPerson = (person) => {
     console.log('Person to add:', person);
-    return function(dispatch, getState) {
-        let state = getState();
-        return fetch(`https://api.pipedrive.com/v1/persons?api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(person),
-        })
+    return function(dispatch) {
+        return persons.create(person)
             .then(data => data.json())
             .then(data => {
                 if (data.success) {
@@ -91,7 +89,7 @@ export const createPerson = (person) => {
 export const removePerson = (id) => {
     store.dispatch(deletePerson());
     return function(dispatch) {
-        return fetch(`https://api.pipedrive.com/v1/persons/`+id+`?api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`, {method: 'DELETE'})
+        return persons.delete(id)
             .then(data => data.json())
             .then(data => {
                 if (data.success) {
@@ -112,13 +110,7 @@ export const removePerson = (id) => {
 export const updatePersonInfo = (person) => {
     store.dispatch(updatePerson());
     return function(dispatch) {
-        return fetch(`https://api.pipedrive.com/v1/persons/`+person.id+`?api_token=f8b6b82465c5e5dd9c3575039abaab1877919329`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(person),
-        })
+        return persons.update(person.id, person)
             .then(data => data.json())
             .then(data => {
                 if (data.success) {
