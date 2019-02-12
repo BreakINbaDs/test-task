@@ -2,10 +2,6 @@ import C from '../actions/constants';
 
 export const index = (state = [], action) => {
     switch (action.type) {
-        case C.FETCH_PERSONS:
-        case C.DELETE_PERSON: return [
-            ...state,
-        ];
         case C.FETCH_PERSONS_SUCCESS:
             return state.concat(action.data.data);
         case C.DELETE_PERSON_SUCCESS:
@@ -51,12 +47,16 @@ export const loader = (state = {}, action) => {
     switch (action.type) {
         case C.FETCH_PERSONS:
         case C.FETCH_PERSON:
+        case C.UPDATE_PERSON:
+        case C.ADD_PERSON:
         case C.DELETE_PERSON: return {
             isLoading: true
         };
         case C.FETCH_PERSONS_SUCCESS:
         case C.FETCH_PERSON_SUCCESS:
         case C.DELETE_PERSON_SUCCESS:
+        case C.UPDATE_PERSON_SUCCESS:
+        case C.ADD_PERSON_SUCCESS:
         case C.ERROR: return {
             isLoading: false
         };
@@ -86,6 +86,15 @@ export const personCreateForm = (state = {}, action) => {
         case C.CLOSE_CREATE_PERSON_FORM: return {
             isOpened: false
         };
+        default:
+            return state;
+    }
+};
+
+export const organizations = (state = [], action) => {
+    switch (action.type) {
+        case C.FETCH_ORGANISATIONS_SUCCESS:
+            return state.concat(action.data.data);
         default:
             return state;
     }

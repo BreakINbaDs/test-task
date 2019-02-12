@@ -10,12 +10,6 @@
   left: 50%;
   background-color: white;
 
-  img {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-
   h1 {
     height: 40px;
     background-color: #F7F7F7;
@@ -31,6 +25,9 @@
     position: absolute;
     top: 10px;
     right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
   }
 
   &__img {
@@ -42,6 +39,7 @@
     line-height: 60px;
     color: #678CB8;
     margin-bottom: 10px;
+    font-weight: bold;
   }
 
   &__main-info {
@@ -66,6 +64,10 @@
     margin-bottom: 5px;
   }
 
+  &__person-name {
+    font-weight: bold;
+  }
+
   &__person-phone {
     color: #9FD8AB;
   }
@@ -76,6 +78,7 @@
     width: 80px;
     text-align: right;
     margin-right: 10px;
+    font-weight: bold;
   }
 
   &__info-row {
@@ -116,6 +119,8 @@
   &__button-delete {
     background-color: red;
     margin-left: 10px;
+    color: white;
+    font-weight: bold;
   }
 
   &__button-back {

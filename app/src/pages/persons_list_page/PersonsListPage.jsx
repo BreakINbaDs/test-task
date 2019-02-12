@@ -39,6 +39,7 @@ export class PersonsListPage extends Component {
         return (
             <div className='persons_list_page'>
                 <div className='persons_list_page__header'>
+                    <img src={require('../../assets/images/logo.png')}/>
                     <button onClick={() => this.props.onOpenPersonCreateForm()}>Add Person</button>
                 </div>
                 <h1>Peoples's List</h1>
@@ -59,7 +60,7 @@ export class PersonsListPage extends Component {
                             >
                                 <PersonsList
                                     hasMore={this.props.hasMore}
-                                    onLoadMore={() => this.loadMore()}
+                                    onLoadMore={this.loadMore}
                                     onOpenPerson={this.props.onOpenPerson}
                                     persons={this.props.persons}
                                 />

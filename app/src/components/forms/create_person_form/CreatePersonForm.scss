@@ -34,7 +34,7 @@
     flex-direction: column;
     padding: 25px 10px;
 
-    input {
+    input, label {
       height: 30px;
       background-color: white;
       border-radius: 3px;
@@ -42,6 +42,18 @@
       border: #F1F1F1 solid 2px;
       border-color: #F1F1F1;
       margin: 10px 0;
+    }
+
+    #file-upload {
+      display: none;
+    }
+
+    label {
+      font-size: 11px;
+      line-height: 23px;
+      padding: 0 1px;
+      color: gray;
+      cursor: pointer;
     }
   }
 

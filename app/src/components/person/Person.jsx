@@ -22,8 +22,8 @@ export class Person extends Component {
                             </div>
                         </div>
                         {
-                            (this.props.person.img !== undefined)
-                                ? <img src={this.props.person.img}></img>
+                            (this.props.person.picture_id !== null)
+                                ? <img src={this.props.person.picture_id.pictures[128]} className='person__img'></img>
                                 : <div className='person__img'>
                                     {this.props.person.first_name.charAt(0)}
                                     {this.props.person.last_name.charAt(0)}

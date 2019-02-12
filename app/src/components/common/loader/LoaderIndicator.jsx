@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import Loader from 'react-loader-spinner';
-import './Loader.scss';
+import './LoaderIndicator.scss';
 
-export class Loader extends Component {
+export class LoaderIndicator extends Component {
 
     render() {
-        console.log('loading', this.props.loading);
         return (
-            <div className='loader'>
-                <Loader type="Watch" color="#9FD8AB" height={80} width={80} />
+            <div className={`loader ${this.props.loading ? "loader--visible" : ""}`}>
+                <div className='loader__wrapper'>
+                    <Loader type="Watch" color="#678CB8" height={80} width={80} />
+                </div>
             </div>
         )
     }

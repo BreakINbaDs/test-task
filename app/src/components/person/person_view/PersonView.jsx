@@ -14,8 +14,8 @@ export class PersonView extends Component {
                     <div className='person_modal__wrapper'>
                         <div className='person_modal__main-info'>
                             {
-                                (person.img !== undefined)
-                                    ? <img src={this.props.person.img}></img>
+                                (person.picture_id !== null)
+                                    ? <img src={person.picture_id.pictures[512]} className='person_modal__img'></img>
                                     : <div className='person_modal__img'>
                                         {person.first_name.charAt(0)}
                                         {person.last_name.charAt(0)}

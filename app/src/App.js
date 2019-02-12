@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './App.css';
 import {PersonsListPage} from "./pages/persons_list_page/PersonsListPage";
-import {createPerson, getPerson, getPersons, removePerson} from "./services/webAPI";
+import {createPerson, getPerson, getPersons, removePerson} from "./services/personsService";
 import {PersonView} from "./components/person/person_view/PersonView";
-import {closeCreatePersonForm, closePersonView, openCreatePersonForm, searchPerson} from "./actions/index";
+import {
+    closeCreatePersonForm,
+    closePersonView,
+    openCreatePersonForm,
+    searchPerson
+} from "./actions/index";
 import {CreatePersonForm} from "./components/forms/create_person_form/CreatePersonForm";
+import {LoaderIndicator} from "./components/common/loader/LoaderIndicator";
+import {getOrganisations} from "./services/organisationsService";
 
 class App extends Component {
 
@@ -25,6 +32,7 @@ class App extends Component {
     componentDidMount() {
         if (this.props.persons.length === 0)
             this.fetchPersons();
+        this.props.dispatch(getOrganisations());
     }
 
     fetchPersons() {
@@ -76,7 +84,6 @@ class App extends Component {
     }
 
     render() {
-        console.log('Persons', this.props.persons);
         return (
           <div className="app">
               <PersonsListPage persons={this.props.persons}
@@ -93,9 +100,11 @@ class App extends Component {
                           isVisible={this.props.personView.isOpened}
               />
               <CreatePersonForm isVisible={this.props.personCreateForm.isOpened}
+                                organizations={this.props.organizations}
                                 onClosePersonCreateForm={this.closePersonCreateForm}
                                 onAddPerson={this.addPerson}
               />
+              <LoaderIndicator loading={this.props.loader.isLoading}/>
           </div>
         );
     }
@@ -107,7 +116,9 @@ const mapStateToProps = state => {
         person: state.person,
         personView: state.personView,
         personCreateForm: state.personCreateForm,
-        pagination: state.pagination
+        pagination: state.pagination,
+        loader: state.loader,
+        organizations: state.organizations,
     };
 };
 export default connect(mapStateToProps)(App);

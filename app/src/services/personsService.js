@@ -1,6 +1,4 @@
-import storePersons from "../store/storeConfiguration";
 import {
-    fetchPersons,
     fetchPersonsSuccess,
     fetchPerson,
     fetchPersonSuccess,
@@ -15,14 +13,12 @@ import {
     updatePerson,
     updatePersonSuccess
 } from "../actions/index";
-import {apiService} from "./personsService";
+import {apiService} from "./apiService";
 
 const namespace = '/persons';
-const store = storePersons();
 const persons = apiService(namespace);
 
 export const getPersons = (pagination) => {
-    store.dispatch(fetchPersons());
     return function(dispatch) {
         return persons.list({
                 start: pagination.next_start,
@@ -45,8 +41,8 @@ export const getPersons = (pagination) => {
 };
 
 export const getPerson = (id) => {
-    store.dispatch(fetchPerson());
     return function(dispatch) {
+        dispatch(fetchPerson());
         return persons.view(id)
             .then(data => data.json())
             .then(data => {
@@ -66,15 +62,16 @@ export const getPerson = (id) => {
 };
 
 export const createPerson = (person) => {
-    console.log('Person to add:', person);
+    const file = person.avatar;
+    delete person.avatar;
     return function(dispatch) {
+        dispatch(addPerson());
         return persons.create(person)
             .then(data => data.json())
             .then(data => {
                 if (data.success) {
                     console.log('Data:', data);
-                    dispatch(addPersonSuccess(data));
-                    dispatch(closeCreatePersonForm());
+                    addPersonAvatar(data, file, dispatch);
                 } else {
                     console.log('Error', data);
                     dispatch(error(data));
@@ -86,9 +83,27 @@ export const createPerson = (person) => {
     };
 };
 
+export const addPersonAvatar = (person, file, dispatch) => {
+    return persons.upload(person.data.id, file)
+        .then(data => data.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Data:', data);
+                dispatch(addPersonSuccess(person));
+                dispatch(closeCreatePersonForm());
+            } else {
+                console.log('Error', data);
+                dispatch(error(data));
+            }
+        })
+        .catch(err => {
+            dispatch(error(err));
+        });
+};
+
 export const removePerson = (id) => {
-    store.dispatch(deletePerson());
     return function(dispatch) {
+        dispatch(deletePerson());
         return persons.delete(id)
             .then(data => data.json())
             .then(data => {
@@ -108,7 +123,6 @@ export const removePerson = (id) => {
 };
 
 export const updatePersonInfo = (person) => {
-    store.dispatch(updatePerson());
     return function(dispatch) {
         return persons.update(person.id, person)
             .then(data => data.json())
@@ -128,6 +142,7 @@ export const updatePersonInfo = (person) => {
 };
 
 export const reorderPersons = (personFrom, personTo) => {
-    this.updatePersonInfo(personFrom);
-    this.updatePersonInfo(personTo);
+    return function (dispatch) {
+        
+    }
 };
